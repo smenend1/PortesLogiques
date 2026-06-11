@@ -1,11 +1,12 @@
-# Portes Lògiques Plus v3
+# Portes Lògiques Plus v3.1
 
-PWA educativa per treballar portes lògiques a l'aula.
+Correcció crítica de la v3: la interfície quedava buida perquè hi havia un error de JavaScript en el mode Taula a circuit.
 
-## Novetats v3
+## Inclou
+- Simulador visual de portes.
 - Circuits configurables amb NOT a A, B, C, X, Y o a la sortida final.
 - Logigrames visuals i taula de veritat automàtica del circuit.
-- Mode Taula → circuit per reconèixer AND, OR, NAND, NOR, XOR i XNOR.
+- Mode Taula a circuit.
 - Expressions booleanes a taula de veritat.
 - Karnaugh guiat de 4 variables.
 - Pràctica per nivells N1-N4.
