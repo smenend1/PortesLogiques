@@ -1,14 +1,14 @@
-# Portes Lògiques Plus v3.1
+# Portes Lògiques Plus v3.2
 
-Correcció crítica de la v3: la interfície quedava buida perquè hi havia un error de JavaScript en el mode Taula a circuit.
+Versió d'estabilitat i aula.
 
-## Inclou
-- Simulador visual de portes.
-- Circuits configurables amb NOT a A, B, C, X, Y o a la sortida final.
-- Logigrames visuals i taula de veritat automàtica del circuit.
-- Mode Taula a circuit.
-- Expressions booleanes a taula de veritat.
-- Karnaugh guiat de 4 variables.
-- Pràctica per nivells N1-N4.
-- Mode docent amb fitxes i mode examen ràpid.
-- Impressió només de la fitxa generada.
+## Novetats
+- Missatge visible si falla el JavaScript.
+- Botó per netejar memòria cau i service worker.
+- Diagnosi de pestanyes carregades.
+- Mode fosc/clar.
+- Simulador amb logigrama, circuits configurables, taula a porta, expressions, Karnaugh, pràctica i docent.
+- Impressió limitada a la fitxa generada.
+
+## GitHub Pages
+Puja el contingut del ZIP a l'arrel del repositori: index.html, manifest.json, sw.js i carpeta assets.
