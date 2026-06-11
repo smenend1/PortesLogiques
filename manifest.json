@@ -1,0 +1,13 @@
+{
+  "name":"Portes Lògiques Plus",
+  "short_name":"Portes Plus",
+  "description":"PWA educativa per treballar portes lògiques, taules de veritat, expressions booleanes i pràctica autocorregible.",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#f5f8fc",
+  "theme_color":"#234f8f",
+  "icons":[
+    {"src":"./assets/icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"./assets/icon-512.png","sizes":"512x512","type":"image/png"}
+  ]
+}
