@@ -1,10 +1,13 @@
-# Portes Lògiques Plus v2.3
+# Portes Lògiques Plus v3
 
-PWA de laboratori visual de portes lògiques.
+PWA educativa per treballar portes lògiques a l'aula.
 
-## Novetat v2.3
-
-- A l'apartat Circuits s'afegeix una tercera porta NOT al final del logigrama.
-- El circuit queda com: G1(A,B) -> X; G2(X,C) -> Y; NOT(Y) -> S.
-- La taula de veritat incorpora les columnes X, Y i S = NOT(Y).
-- Es manté la impressió docent corregida i el logigrama visual.
+## Novetats v3
+- Circuits configurables amb NOT a A, B, C, X, Y o a la sortida final.
+- Logigrames visuals i taula de veritat automàtica del circuit.
+- Mode Taula → circuit per reconèixer AND, OR, NAND, NOR, XOR i XNOR.
+- Expressions booleanes a taula de veritat.
+- Karnaugh guiat de 4 variables.
+- Pràctica per nivells N1-N4.
+- Mode docent amb fitxes i mode examen ràpid.
+- Impressió només de la fitxa generada.
