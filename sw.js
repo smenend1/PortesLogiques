@@ -1,4 +1,4 @@
-const CACHE_NAME = 'portes-logiques-plus-v4-1-revisio-qualitat';
+const CACHE_NAME = 'portes-logiques-plus-v4-2-impressio-fitxa-docent';
 const ASSETS = ['./', './index.html', './manifest.json', './assets/icon-192.png', './assets/icon-512.png'];
 self.addEventListener('install', event => {
   self.skipWaiting();
