@@ -1,78 +1,558 @@
 <!doctype html>
 <html lang="ca">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Portes Lògiques Plus v4.3 nova</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portes Lògiques Plus v5</title>
 <link rel="manifest" href="manifest.json">
 <style>
-:root{--b:#1d4ed8;--b2:#0f172a;--bg:#eef5ff;--card:#fff;--txt:#0f172a;--mut:#64748b;--ok:#16a34a;--ko:#dc2626;--line:#cbd5e1}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt)}
-header{background:linear-gradient(120deg,var(--b),var(--b2));color:#fff;padding:22px 18px}header .wrap{max-width:1120px;margin:auto}h1{margin:0;font-size:1.75rem}header p{margin:.35rem 0 0;opacity:.92}
-nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.tabs{max-width:1120px;margin:auto;display:flex;gap:8px;overflow:auto;padding:10px}.tab{border:1px solid var(--line);background:#f8fafc;padding:10px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}.tab.active{background:var(--b);color:#fff;border-color:var(--b)}
-main{max-width:1120px;margin:18px auto;padding:0 14px}.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 20px #0f172a12}h2,h3{margin-top:0}.muted{color:var(--mut)}
-label{display:block;font-weight:700;margin:.55rem 0 .25rem}select,input,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}button{background:var(--b);color:#fff;border:0;border-radius:12px;padding:10px 13px;font-weight:700;cursor:pointer;margin:4px 3px}button.secondary{background:#e2e8f0;color:#0f172a}button.danger{background:#dc2626}.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;margin:3px;background:#f8fafc}.bigout{font-size:2rem;font-weight:900;border:3px solid var(--b);border-radius:16px;padding:12px;text-align:center;background:#eff6ff}.one{color:var(--ok);font-weight:900}.zero{color:var(--ko);font-weight:900}
-table{border-collapse:collapse;width:100%;background:#fff}th,td{border:1px solid var(--line);padding:7px;text-align:center}th{background:#eff6ff}.scroll{overflow:auto}.svgbox{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:10px}.steps{line-height:1.65;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap}.hidden{display:none!important}
-@media print{nav,header,.no-print,button{display:none!important}body{background:#fff}.card{box-shadow:none;border:0}.page{display:block}.print-only{display:block!important}}
+:root{
+  --b:#1d4ed8;--b2:#0f172a;--bg:#eef5ff;--card:#fff;--txt:#0f172a;--mut:#64748b;
+  --line:#cbd5e1;--ok:#16a34a;--ko:#dc2626;--warn:#f59e0b;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt)}
+header{background:linear-gradient(120deg,var(--b),var(--b2));color:white;padding:24px 16px}
+.wrap{max-width:1180px;margin:auto}
+h1{margin:0;font-size:2rem}
+header p{margin:.4rem 0 0;opacity:.95}
+nav{background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.tabs{max-width:1180px;margin:auto;display:flex;gap:8px;overflow:auto;padding:10px}
+.tab{border:1px solid var(--line);background:#f8fafc;color:#0f172a!important;padding:10px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;font-weight:800}
+.tab.active{background:var(--b);color:white!important;border-color:var(--b)}
+main{max-width:1180px;margin:18px auto;padding:0 14px}
+.page{display:none}.page.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 8px 24px #0f172a12}
+h2,h3{margin-top:0}.muted{color:var(--mut)}
+label{display:block;font-weight:800;margin:.55rem 0 .25rem}
+select,input,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:white;color:#0f172a}
+button{background:var(--b);color:#fff!important;border:0;border-radius:12px;padding:10px 13px;font-weight:800;cursor:pointer;margin:4px 3px}
+button.secondary{background:#e2e8f0;color:#0f172a!important}
+button.danger{background:#dc2626;color:white!important}
+button.ok{background:#16a34a;color:white!important}
+button:disabled{opacity:.55;cursor:not-allowed}
+.bigout{font-size:2.2rem;font-weight:950;border:3px solid var(--b);border-radius:16px;padding:12px;text-align:center;background:#eff6ff}
+.one{color:var(--ok);font-weight:950}.zero{color:var(--ko);font-weight:950}
+table{border-collapse:collapse;width:100%;background:white}
+th,td{border:1px solid var(--line);padding:7px;text-align:center}
+th{background:#eff6ff}
+.scroll{overflow:auto}
+.svgbox{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:10px}
+.steps{line-height:1.65;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap}
+.gate-row{border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;background:#f8fafc}
+.gate-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.gate-title{font-weight:950;color:#1e3a8a}
+.inline{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;align-items:end}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;margin:3px;background:#fff;font-weight:700}
+.badge{display:inline-block;border-radius:999px;padding:4px 9px;background:#dbeafe;color:#1e3a8a;font-weight:900}
+.warn{border-left:5px solid var(--warn);background:#fffbeb}
+@media print{
+  nav,header,.no-print,button{display:none!important}
+  body{background:white}
+  .card{box-shadow:none;border:0}
+  .page{display:block}
+}
 </style>
 </head>
 <body>
-<header><div class="wrap"><h1>Portes Lògiques Plus v4.3 nova</h1><p>Simulador, constructor avançat, taules de veritat i PDF de fitxes/simulacions corregit.</p></div></header>
+<header><div class="wrap"><h1>Portes Lògiques Plus v5</h1><p>Constructor flexible fins a 8 portes, taules automàtiques, logigrama i PDF de simulació/fitxes.</p></div></header>
 <nav><div class="tabs" id="tabs"></div></nav>
 <main>
-<section id="sim" class="page active"><div class="grid"><div class="card"><h2>Simulador de porta</h2><label>Porta</label><select id="gateSel"></select><label>Entrades</label><div><button class="secondary" id="btnA">A = <span id="valA">0</span></button><button class="secondary" id="btnB">B = <span id="valB">0</span></button><button class="secondary" id="btnC">C = <span id="valC">0</span></button></div><p class="bigout">S = <span id="simOut">0</span></p></div><div class="card"><h2>Logigrama</h2><div id="simSvg" class="svgbox"></div></div><div class="card"><h2>Taula de veritat</h2><div class="scroll" id="simTable"></div></div></div></section>
-<section id="constructor" class="page"><div class="grid"><div class="card"><h2>Constructor avançat</h2><p class="muted">Estructura: A,B → P1 → X; X,C → P2 → Y; Y,D → P3 → Z; S final.</p><div class="grid"><div><label>Porta 1</label><select id="p1"></select></div><div><label>Porta 2</label><select id="p2"></select></div><div><label>Porta 3</label><select id="p3"></select></div></div><h3>NOT configurables</h3><div id="notChecks"></div><h3>Valors de simulació</h3><div><button class="secondary" data-in="A">A=<span id="cA">0</span></button><button class="secondary" data-in="B">B=<span id="cB">0</span></button><button class="secondary" data-in="C">C=<span id="cC">0</span></button><button class="secondary" data-in="D">D=<span id="cD">0</span></button></div><p class="bigout">S = <span id="cOut">0</span></p><button id="printSim">Imprimir / PDF simulació</button><button class="secondary" id="copyExpr">Copiar expressió</button></div><div class="card"><h2>Logigrama del circuit</h2><div id="cSvg" class="svgbox"></div></div></div><div class="card"><h2>Expressió i simulació pas a pas</h2><div id="exprBox" class="steps"></div><div id="stepBox" class="steps"></div></div><div class="card"><h2>Taula de veritat del circuit</h2><div class="scroll" id="cTable"></div></div></section>
-<section id="taula" class="page"><div class="card"><h2>Taula → porta</h2><p>Marca les sortides S d'una funció de dues variables. L'app intentarà reconèixer la porta.</p><div id="truthEdit"></div><button id="recognize">Reconèixer</button><p class="bigout" id="recOut">Porta: —</p></div></section>
-<section id="expressions" class="page"><div class="card"><h2>Expressió → taula</h2><p class="muted">Usa A, B, C, D amb ! per NOT, & per AND, | per OR, ^ per XOR. Exemple: <b>(A & !B) | C</b></p><textarea id="exprInput" rows="3">(A & !B) | C</textarea><button id="makeExprTable">Generar taula</button><div class="scroll" id="exprTable"></div></div></section>
-<section id="karnaugh" class="page"><div class="card"><h2>Karnaugh bàsic</h2><p>Mapa de 4 variables. Clica les cel·les per marcar 0/1. Aquesta versió dona lectura guiada inicial.</p><div id="kmap"></div><div id="kguide" class="steps"></div></div></section>
-<section id="practica" class="page"><div class="card"><h2>Pràctica</h2><button id="newQ">Nova pregunta</button><div id="qBox" class="steps"></div><input id="ans" placeholder="Resposta"><button id="checkAns">Comprovar</button><div id="feed" class="steps"></div></div></section>
-<section id="docent" class="page"><div class="card"><h2>Docent: fitxa imprimible</h2><label>Tipus de fitxa</label><select id="sheetType"><option>Portes bàsiques</option><option>Taules de veritat</option><option>Constructor de circuits</option><option>Examen ràpid</option></select><label>Incloure solucions</label><select id="withSol"><option value="no">No</option><option value="yes">Sí</option></select><button id="genSheet">Generar fitxa</button><button id="printSheet">Imprimir / PDF fitxa</button><div id="sheet" class="card" style="margin-top:12px"><p class="muted">Encara no has generat cap fitxa.</p></div></div></section>
-<section id="ajuda" class="page"><div class="card"><h2>Ajuda i diagnosi</h2><p>Aquesta versió imprimeix fitxes i simulacions obrint una finestra nova amb només el contingut necessari.</p><button class="danger" id="clearCache">Netejar memòria cau</button><div id="diag" class="steps"></div></div></section>
+<section id="sim" class="page active">
+  <div class="grid">
+    <div class="card">
+      <h2>Simulador de porta</h2>
+      <label>Porta</label><select id="gateSel"></select>
+      <label>Entrades</label>
+      <button class="secondary" id="btnA">A = <span id="valA">0</span></button>
+      <button class="secondary" id="btnB">B = <span id="valB">0</span></button>
+      <button class="secondary" id="btnC">C = <span id="valC">0</span></button>
+      <p class="bigout">S = <span id="simOut">0</span></p>
+    </div>
+    <div class="card"><h2>Logigrama</h2><div id="simSvg" class="svgbox"></div></div>
+    <div class="card"><h2>Taula de veritat</h2><div id="simTable" class="scroll"></div></div>
+  </div>
+</section>
+
+<section id="constructor" class="page">
+  <div class="grid">
+    <div class="card">
+      <h2>Constructor flexible</h2>
+      <p class="muted">Afegeix portes fins a un màxim de <b>8</b>. Cada porta pot agafar entrades A, B, C, D o sortides de portes anteriors.</p>
+      <div class="no-print">
+        <button id="addGate" class="ok">+ Afegir porta</button>
+        <button id="removeGate" class="danger">− Treure última</button>
+        <button id="resetCircuit" class="secondary">Reinicia circuit</button>
+      </div>
+      <div id="gateList"></div>
+    </div>
+    <div class="card">
+      <h2>Valors de simulació</h2>
+      <button class="secondary" data-in="A">A=<span id="cA">0</span></button>
+      <button class="secondary" data-in="B">B=<span id="cB">0</span></button>
+      <button class="secondary" data-in="C">C=<span id="cC">0</span></button>
+      <button class="secondary" data-in="D">D=<span id="cD">0</span></button>
+      <p class="bigout">S = <span id="cOut">0</span></p>
+      <p><span class="badge" id="gateCount">0 portes</span></p>
+      <button id="printSim">Imprimir / PDF simulació</button>
+      <button id="copyExpr" class="secondary">Copiar expressió</button>
+      <button id="printTable" class="secondary">Imprimir / PDF taula</button>
+    </div>
+  </div>
+  <div class="grid" style="margin-top:14px">
+    <div class="card"><h2>Logigrama del circuit</h2><div id="cSvg" class="svgbox"></div></div>
+    <div class="card"><h2>Expressió i simulació pas a pas</h2><div id="exprBox" class="steps"></div><div id="stepBox" class="steps" style="margin-top:8px"></div></div>
+  </div>
+  <div class="card" style="margin-top:14px"><h2>Taula de veritat del circuit</h2><div id="cTable" class="scroll"></div></div>
+</section>
+
+<section id="taula" class="page">
+  <div class="card">
+    <h2>Taula → porta</h2>
+    <p>Marca les sortides S d'una funció de dues variables. L'app intentarà reconèixer la porta bàsica.</p>
+    <div id="truthEdit"></div>
+    <button id="recognize">Reconèixer</button>
+    <p class="bigout" id="recOut">Porta: —</p>
+  </div>
+</section>
+
+<section id="expressions" class="page">
+  <div class="card">
+    <h2>Expressió → taula</h2>
+    <p class="muted">Usa A, B, C, D amb ! per NOT, & per AND, | per OR, ^ per XOR. Exemple: <b>(A & !B) | C</b></p>
+    <textarea id="exprInput" rows="3">(A & !B) | C</textarea>
+    <button id="makeExprTable">Generar taula</button>
+    <div id="exprTable" class="scroll"></div>
+  </div>
+</section>
+
+<section id="karnaugh" class="page">
+  <div class="card">
+    <h2>Karnaugh bàsic</h2>
+    <p>Mapa de 4 variables. Clica les cel·les per marcar 0/1.</p>
+    <div id="kmap"></div>
+    <div id="kguide" class="steps"></div>
+  </div>
+</section>
+
+<section id="practica" class="page">
+  <div class="card">
+    <h2>Pràctica</h2>
+    <button id="newQ">Nova pregunta</button>
+    <div id="qBox" class="steps"></div>
+    <input id="ans" placeholder="Resposta">
+    <button id="checkAns">Comprovar</button>
+    <div id="feed" class="steps"></div>
+  </div>
+</section>
+
+<section id="docent" class="page">
+  <div class="card">
+    <h2>Docent: fitxa imprimible</h2>
+    <label>Tipus de fitxa</label>
+    <select id="sheetType">
+      <option>Portes bàsiques</option>
+      <option>Taules de veritat</option>
+      <option>Constructor de circuits</option>
+      <option>Examen ràpid</option>
+      <option>Circuit de fins a 8 portes</option>
+    </select>
+    <label>Incloure solucions</label>
+    <select id="withSol"><option value="no">No</option><option value="yes">Sí</option></select>
+    <button id="genSheet">Generar fitxa</button>
+    <button id="printSheet">Imprimir / PDF fitxa</button>
+    <div id="sheet" class="card" style="margin-top:12px"><p class="muted">Encara no has generat cap fitxa.</p></div>
+  </div>
+</section>
+
+<section id="ajuda" class="page">
+  <div class="card">
+    <h2>Ajuda i diagnosi</h2>
+    <p><b>Novetat v5:</b> al Constructor pots afegir portes fins a un màxim de 8. Cada porta només pot usar entrades A-D o portes anteriors; així s'eviten circuits circulars.</p>
+    <p class="muted">Per GitHub Pages: substitueix tots els fitxers i força actualització. Si veus una versió antiga, neteja memòria cau.</p>
+    <button class="danger" id="clearCache">Netejar memòria cau</button>
+    <div id="diag" class="steps"></div>
+  </div>
+</section>
 </main>
+
 <script>
 'use strict';
-window.onerror=function(msg,src,line,col){document.body.insertAdjacentHTML('afterbegin','<div style="background:#fee2e2;color:#7f1d1d;padding:12px;border:2px solid #dc2626">Error JS: '+msg+' línia '+line+'</div>')};
-const gates=['AND','OR','NOT','NAND','NOR','XOR','XNOR','MAJ3'];
-const bin=v=>v?1:0;
-function gate(g,a,b,c){a=+a;b=+b;c=+c; if(g==='AND')return a&b; if(g==='OR')return a|b; if(g==='NOT')return a?0:1; if(g==='NAND')return (a&b)?0:1; if(g==='NOR')return (a|b)?0:1; if(g==='XOR')return a^b; if(g==='XNOR')return (a^b)?0:1; if(g==='MAJ3')return (a+b+c)>=2?1:0; return 0}
-function sym(g){return {AND:'·',OR:'+',NOT:'¬',NAND:'NAND',NOR:'NOR',XOR:'⊕',XNOR:'XNOR',MAJ3:'Maj'}[g]||g}
-function color(v){return v?'#16a34a':'#dc2626'}
-const pages=[['sim','Simulador'],['constructor','Constructor'],['taula','Taula → porta'],['expressions','Expressions'],['karnaugh','Karnaugh'],['practica','Pràctica'],['docent','Docent'],['ajuda','Ajuda']];
-document.getElementById('tabs').innerHTML=pages.map((p,i)=>`<button class="tab ${i?'':'active'}" data-page="${p[0]}">${p[1]}</button>`).join('');
-document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab,.page').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.page).classList.add('active')});
-function fillSelect(id){document.getElementById(id).innerHTML=gates.map(g=>`<option>${g}</option>`).join('')}
-['gateSel','p1','p2','p3'].forEach(fillSelect); document.getElementById('p2').value='OR'; document.getElementById('p3').value='XOR';
-let simVals={A:0,B:0,C:0}, cVals={A:0,B:0,C:0,D:0};
-['A','B','C'].forEach(k=>document.getElementById('btn'+k).onclick=()=>{simVals[k]^=1;updateSim()});
-document.querySelectorAll('[data-in]').forEach(b=>b.onclick=()=>{cVals[b.dataset.in]^=1;updateConstructor()});
-document.getElementById('gateSel').onchange=updateSim;
-function svgGate(g,vals,out){let a=vals[0]||0,b=vals[1]||0,c=vals[2]||0;let lines=`<line x1="10" y1="45" x2="95" y2="45" stroke="${color(a)}" stroke-width="5"/><line x1="10" y1="85" x2="95" y2="85" stroke="${color(b)}" stroke-width="5"/><line x1="205" y1="65" x2="290" y2="65" stroke="${color(out)}" stroke-width="5"/>`; if(g==='NOT')lines=`<line x1="10" y1="65" x2="95" y2="65" stroke="${color(a)}" stroke-width="5"/><line x1="215" y1="65" x2="290" y2="65" stroke="${color(out)}" stroke-width="5"/>`; if(g==='MAJ3')lines+=`<line x1="10" y1="125" x2="95" y2="125" stroke="${color(c)}" stroke-width="5"/>`;
-return `<svg viewBox="0 0 310 170" width="100%" height="190">${lines}<rect x="95" y="30" width="110" height="70" rx="18" fill="#fff" stroke="#0f172a" stroke-width="3"/><text x="150" y="72" text-anchor="middle" font-size="24" font-weight="800">${g}</text><text x="8" y="38">A=${a}</text><text x="8" y="105">B=${b}</text>${g==='MAJ3'?`<text x="8" y="145">C=${c}</text>`:''}<text x="250" y="54">S=${out}</text></svg>`}
-function updateSim(){let g=document.getElementById('gateSel').value;let out=gate(g,simVals.A,simVals.B,simVals.C);['A','B','C'].forEach(k=>document.getElementById('val'+k).textContent=simVals[k]);document.getElementById('simOut').textContent=out;document.getElementById('simOut').className=out?'one':'zero';document.getElementById('simSvg').innerHTML=svgGate(g,[simVals.A,simVals.B,simVals.C],out);let rows=[];let n=(g==='NOT')?1:(g==='MAJ3'?3:2);for(let i=0;i<2**n;i++){let A=(i>>(n-1))&1,B=(i>>(n-2))&1,C=i&1; if(n===1){A=i;B=0;C=0} rows.push([A,B,C,gate(g,A,B,C)])}let head=n===1?'<tr><th>A</th><th>S</th></tr>':n===2?'<tr><th>A</th><th>B</th><th>S</th></tr>':'<tr><th>A</th><th>B</th><th>C</th><th>S</th></tr>';document.getElementById('simTable').innerHTML='<table>'+head+rows.map(r=>n===1?`<tr><td>${r[0]}</td><td>${r[3]}</td></tr>`:n===2?`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[3]}</td></tr>`:`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')+'</table>'}
-const nots=['A','B','C','D','X','Y','Z','S']; document.getElementById('notChecks').innerHTML=nots.map(n=>`<label class="pill"><input type="checkbox" id="not${n}"> NOT ${n}</label>`).join(''); document.querySelectorAll('#notChecks input,#p1,#p2,#p3').forEach(e=>e.onchange=updateConstructor);
-function inv(k,v){return document.getElementById('not'+k).checked?1-v:v}
-function evalCircuit(v){let A=inv('A',v.A),B=inv('B',v.B),C=inv('C',v.C),D=inv('D',v.D);let g1=p1.value,g2=p2.value,g3=p3.value;let X=inv('X',gate(g1,A,B,C));let Y=inv('Y',gate(g2,X,C,D));let Z=inv('Z',gate(g3,Y,D,A));let S=inv('S',Z);return {A,B,C,D,X,Y,Z,S,g1,g2,g3}}
-function exprCircuit(){let A=notA.checked?'¬A':'A',B=notB.checked?'¬B':'B',C=notC.checked?'¬C':'C',D=notD.checked?'¬D':'D';let X=`(${A} ${sym(p1.value)} ${B})`; if(notX.checked)X='¬'+X;let Y=`(${X} ${sym(p2.value)} ${C})`; if(notY.checked)Y='¬'+Y;let Z=`(${Y} ${sym(p3.value)} ${D})`; if(notZ.checked)Z='¬'+Z;let S=notS.checked?'¬'+Z:Z;return {X,Y,Z,S}}
-function circuitSvg(r){return `<svg viewBox="0 0 760 260" width="100%" height="280"><defs><style>.t{font:700 16px system-ui}.g{fill:#fff;stroke:#0f172a;stroke-width:3}.w{stroke-width:5;fill:none}</style></defs>
-${['A','B','C','D'].map((k,i)=>`<text class="t" x="10" y="${45+i*50}">${k}=${cVals[k]}</text>`).join('')}
-<line class="w" x1="70" y1="40" x2="150" y2="40" stroke="${color(r.A)}"/><line class="w" x1="70" y1="90" x2="150" y2="90" stroke="${color(r.B)}"/><rect class="g" x="150" y="25" width="110" height="80" rx="18"/><text class="t" x="205" y="72" text-anchor="middle">${r.g1}</text><line class="w" x1="260" y1="65" x2="330" y2="65" stroke="${color(r.X)}"/><text class="t" x="286" y="55">X=${r.X}</text>
-<line class="w" x1="70" y1="140" x2="330" y2="140" stroke="${color(r.C)}"/><rect class="g" x="330" y="70" width="110" height="100" rx="18"/><text class="t" x="385" y="125" text-anchor="middle">${r.g2}</text><line class="w" x1="440" y1="120" x2="510" y2="120" stroke="${color(r.Y)}"/><text class="t" x="466" y="110">Y=${r.Y}</text>
-<line class="w" x1="70" y1="190" x2="510" y2="190" stroke="${color(r.D)}"/><rect class="g" x="510" y="125" width="110" height="95" rx="18"/><text class="t" x="565" y="180" text-anchor="middle">${r.g3}</text><line class="w" x1="620" y1="172" x2="705" y2="172" stroke="${color(r.S)}"/><text class="t" x="660" y="155">S=${r.S}</text></svg>`}
-function updateConstructor(){['A','B','C','D'].forEach(k=>document.getElementById('c'+k).textContent=cVals[k]);let r=evalCircuit(cVals);document.getElementById('cOut').textContent=r.S;document.getElementById('cOut').className=r.S?'one':'zero';document.getElementById('cSvg').innerHTML=circuitSvg(r);let ex=exprCircuit();document.getElementById('exprBox').textContent=`X = ${ex.X}\nY = ${ex.Y}\nZ = ${ex.Z}\nS = ${ex.S}`;document.getElementById('stepBox').textContent=`A=${cVals.A}, B=${cVals.B}, C=${cVals.C}, D=${cVals.D}\nX = ${r.g1}(${r.A}, ${r.B}) = ${r.X}\nY = ${r.g2}(${r.X}, ${r.C}) = ${r.Y}\nZ = ${r.g3}(${r.Y}, ${r.D}) = ${r.Z}\nS = ${notS.checked?'NOT ':''}Z = ${r.S}`;let rows='';for(let i=0;i<16;i++){let v={A:(i>>3)&1,B:(i>>2)&1,C:(i>>1)&1,D:i&1};let rr=evalCircuit(v);rows+=`<tr><td>${v.A}</td><td>${v.B}</td><td>${v.C}</td><td>${v.D}</td><td>${rr.X}</td><td>${rr.Y}</td><td>${rr.Z}</td><td><b>${rr.S}</b></td></tr>`}document.getElementById('cTable').innerHTML=`<table><tr><th>A</th><th>B</th><th>C</th><th>D</th><th>X</th><th>Y</th><th>Z</th><th>S</th></tr>${rows}</table>`}
-function printWindow(title,html){let w=window.open('','_blank','width=900,height=700'); if(!w){alert('El navegador ha bloquejat la finestra emergent. Permet finestres emergents per imprimir.');return} w.document.open(); w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${title}</title><style>body{font-family:Arial,sans-serif;padding:22px;color:#111}h1{color:#1d4ed8}table{border-collapse:collapse;width:100%;margin:12px 0}th,td{border:1px solid #999;padding:6px;text-align:center}th{background:#eaf2ff}.box{border:1px solid #bbb;border-radius:12px;padding:12px;margin:12px 0}svg{max-width:100%}@media print{button{display:none}}</style></head><body><h1>${title}</h1>${html}<script>setTimeout(()=>{window.focus();window.print()},300)<\/script></body></html>`); w.document.close()}
-document.getElementById('printSim').onclick=()=>printWindow('Simulació pas a pas del circuit',`<div class="box">${document.getElementById('cSvg').innerHTML}</div><h2>Expressió</h2><pre>${document.getElementById('exprBox').textContent}</pre><h2>Pas a pas</h2><pre>${document.getElementById('stepBox').textContent}</pre><h2>Taula de veritat</h2>${document.getElementById('cTable').innerHTML}`);
-document.getElementById('copyExpr').onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('exprBox').textContent);
-let edit=[0,0,0,1];function renderTruthEdit(){document.getElementById('truthEdit').innerHTML='<table><tr><th>A</th><th>B</th><th>S</th></tr>'+[[0,0],[0,1],[1,0],[1,1]].map((r,i)=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td><button class="secondary" data-row="${i}">${edit[i]}</button></td></tr>`).join('')+'</table>';document.querySelectorAll('[data-row]').forEach(b=>b.onclick=()=>{edit[b.dataset.row]^=1;renderTruthEdit()})}renderTruthEdit();document.getElementById('recognize').onclick=()=>{let s=edit.join('');let map={'0001':'AND','0111':'OR','1110':'NAND','1000':'NOR','0110':'XOR','1001':'XNOR'};document.getElementById('recOut').textContent='Porta: '+(map[s]||'no bàsica / combinada')};
-function safeEval(expr,A,B,C,D){let js=expr.replaceAll('¬','!').replaceAll('AND','&&').replaceAll('OR','||').replaceAll('XOR','^').replace(/\bA\b/g,A).replace(/\bB\b/g,B).replace(/\bC\b/g,C).replace(/\bD\b/g,D).replace(/&/g,'&&').replace(/\|/g,'||'); if(!/^[01!&|^()\s]+$/.test(js))throw Error('Expressió no permesa'); return eval(js)?1:0}
-document.getElementById('makeExprTable').onclick=()=>{let e=exprInput.value;let rows='';try{for(let i=0;i<16;i++){let A=(i>>3)&1,B=(i>>2)&1,C=(i>>1)&1,D=i&1;rows+=`<tr><td>${A}</td><td>${B}</td><td>${C}</td><td>${D}</td><td>${safeEval(e,A,B,C,D)}</td></tr>`}exprTable.innerHTML=`<table><tr><th>A</th><th>B</th><th>C</th><th>D</th><th>S</th></tr>${rows}</table>`}catch(err){exprTable.textContent='Error: '+err.message}};
-let kvals=Array(16).fill(0);function renderK(){let order=[0,1,3,2];let html='<table><tr><th>AB\\CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>';for(let r=0;r<4;r++){html+=`<tr><th>${['00','01','11','10'][r]}</th>`;for(let c=0;c<4;c++){let idx=order[r]*4+order[c];html+=`<td><button class="secondary" data-k="${idx}">${kvals[idx]}</button></td>`}html+='</tr>'}html+='</table>';kmap.innerHTML=html;document.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{kvals[b.dataset.k]^=1;renderK()});let ones=kvals.reduce((a,v)=>a+v,0);kguide.textContent=`Uns marcats: ${ones}. Guia: busca grups de 1, 2, 4 o 8 cel·les adjacents. Les variables que canvien dins el grup desapareixen del terme simplificat.`}renderK();
-const qs=[['Quina porta dona 1 només si A=1 i B=1?','AND'],['Quina porta dona 1 si A i B són diferents?','XOR'],['Quina porta és la negació d’OR?','NOR'],['Quina és la sortida de AND amb A=1 i B=0?','0']];let cur=0;newQ.onclick=()=>{cur=Math.floor(Math.random()*qs.length);qBox.textContent=qs[cur][0];feed.textContent=''};checkAns.onclick=()=>{feed.textContent=(ans.value.trim().toUpperCase()===qs[cur][1])?'Correcte':'No exactament. Solució: '+qs[cur][1]};newQ.onclick();
-function makeSheet(){let type=sheetType.value, sol=withSol.value==='yes';let html=`<h2>Fitxa generada: ${type}</h2><p>Nom: __________________________ Data: __________</p>`;if(type==='Portes bàsiques')html+='<ol><li>Dibuixa la taula de veritat de AND.</li><li>Explica la diferència entre OR i XOR.</li><li>Quina porta és equivalent a NOT(AND)?</li></ol>';if(type==='Taules de veritat')html+='<ol><li>Completa la taula de S=A·B.</li><li>Completa la taula de S=A+B.</li><li>Identifica la porta a partir de 0,1,1,0.</li></ol>';if(type==='Constructor de circuits')html+='<ol><li>Configura un circuit amb P1=AND, P2=OR, P3=XOR.</li><li>Escriu X, Y, Z i S.</li><li>Fes la taula de veritat.</li></ol>';if(type==='Examen ràpid')html+='<ol><li>Identifica AND, OR i NOT.</li><li>Calcula la sortida de XOR per A=1, B=0.</li><li>Dissenya una alarma que s’activi amb porta oberta o fum.</li></ol>'; if(sol)html+='<h3>Solucions orientatives</h3><p>AND: només 1 amb totes les entrades a 1. XOR: 1 si les entrades són diferents. NAND = NOT(AND).</p>';sheet.innerHTML=html}
-genSheet.onclick=makeSheet;printSheet.onclick=()=>printWindow('Fitxa docent',sheet.innerHTML);makeSheet();
-clearCache.onclick=async()=>{if('serviceWorker'in navigator){let regs=await navigator.serviceWorker.getRegistrations();for(const r of regs)await r.unregister()} if('caches'in window){let ks=await caches.keys();for(const k of ks)await caches.delete(k)} alert('Memòria cau netejada. Recarrega la pàgina.')};
-diag.textContent='Diagnosi: JavaScript carregat. Pestanyes detectades: '+pages.length+'. Versió: v4.3 nova.';
-if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
-updateSim();updateConstructor();
+
+window.onerror = function(msg, src, line) {
+  document.body.insertAdjacentHTML('afterbegin',
+    '<div style="background:#fee2e2;color:#7f1d1d;padding:12px;border:2px solid #dc2626">Error JS: '+String(msg)+' línia '+line+'</div>');
+};
+
+const gates = ['AND','OR','NOT','NAND','NOR','XOR','XNOR','MAJ3'];
+const pages = [
+  ['sim','Simulador'],['constructor','Constructor'],['taula','Taula → porta'],
+  ['expressions','Expressions'],['karnaugh','Karnaugh'],['practica','Pràctica'],['docent','Docent'],['ajuda','Ajuda']
+];
+
+function $(id){ return document.getElementById(id); }
+function color(v){ return v ? '#16a34a' : '#dc2626'; }
+function bit(v){ return v ? 1 : 0; }
+function sym(g){ return {AND:'·',OR:'+',NOT:'¬',NAND:'NAND',NOR:'NOR',XOR:'⊕',XNOR:'XNOR',MAJ3:'MAJ'}[g] || g; }
+function gate(g,a,b,c){
+  a=+a; b=+b; c=+c;
+  if(g==='AND') return a & b;
+  if(g==='OR') return a | b;
+  if(g==='NOT') return a ? 0 : 1;
+  if(g==='NAND') return (a & b) ? 0 : 1;
+  if(g==='NOR') return (a | b) ? 0 : 1;
+  if(g==='XOR') return a ^ b;
+  if(g==='XNOR') return (a ^ b) ? 0 : 1;
+  if(g==='MAJ3') return (a+b+c)>=2 ? 1 : 0;
+  return 0;
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+$('tabs').innerHTML = pages.map((p,i)=>`<button class="tab ${i?'':'active'}" data-page="${p[0]}">${p[1]}</button>`).join('');
+document.querySelectorAll('.tab').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.tab,.page').forEach(x => x.classList.remove('active'));
+  b.classList.add('active'); $(b.dataset.page).classList.add('active');
+});
+
+function fillSelect(id){
+  $(id).innerHTML = gates.map(g => `<option>${g}</option>`).join('');
+}
+fillSelect('gateSel');
+
+/* Simulador de porta */
+let simVals = {A:0,B:0,C:0};
+['A','B','C'].forEach(k => $('btn'+k).onclick = () => { simVals[k] ^= 1; updateSim(); });
+$('gateSel').onchange = updateSim;
+
+function svgGate(g, vals, out){
+  const a=vals[0]||0,b=vals[1]||0,c=vals[2]||0;
+  let inLines = '';
+  if(g==='NOT'){
+    inLines = `<line x1="10" y1="70" x2="95" y2="70" stroke="${color(a)}" stroke-width="5"/>`;
+  } else {
+    inLines = `<line x1="10" y1="50" x2="95" y2="50" stroke="${color(a)}" stroke-width="5"/>
+               <line x1="10" y1="90" x2="95" y2="90" stroke="${color(b)}" stroke-width="5"/>`;
+    if(g==='MAJ3') inLines += `<line x1="10" y1="130" x2="95" y2="130" stroke="${color(c)}" stroke-width="5"/>`;
+  }
+  const bubble = (g==='NAND'||g==='NOR'||g==='XNOR'||g==='NOT') ? '<circle cx="213" cy="70" r="8" fill="#fff" stroke="#0f172a" stroke-width="3"/>' : '';
+  const outStart = bubble ? 221 : 205;
+  return `<svg viewBox="0 0 315 170" width="100%" height="190">
+    ${inLines}
+    <rect x="95" y="30" width="110" height="90" rx="22" fill="#fff" stroke="#0f172a" stroke-width="3"/>
+    <text x="150" y="75" text-anchor="middle" dominant-baseline="middle" font-size="24" font-weight="900">${g}</text>
+    ${bubble}
+    <line x1="${outStart}" y1="70" x2="295" y2="70" stroke="${color(out)}" stroke-width="5"/>
+    <text x="18" y="42" font-weight="900">A=${a}</text>
+    ${g!=='NOT'?`<text x="18" y="84" font-weight="900">B=${b}</text>`:''}
+    ${g==='MAJ3'?`<text x="18" y="124" font-weight="900">C=${c}</text>`:''}
+    <text x="260" y="58" font-weight="900">S=${out}</text>
+  </svg>`;
+}
+function updateSim(){
+  ['A','B','C'].forEach(k => $('val'+k).textContent = simVals[k]);
+  const g = $('gateSel').value;
+  const out = gate(g, simVals.A, simVals.B, simVals.C);
+  $('simOut').textContent = out; $('simOut').className = out ? 'one' : 'zero';
+  $('simSvg').innerHTML = svgGate(g, [simVals.A,simVals.B,simVals.C], out);
+  const n = g==='NOT' ? 1 : (g==='MAJ3' ? 3 : 2);
+  let rows = [];
+  for(let i=0;i<2**n;i++){
+    let A,B,C;
+    if(n===1){ A=i; B=0; C=0; }
+    else if(n===2){ A=(i>>1)&1; B=i&1; C=0; }
+    else { A=(i>>2)&1; B=(i>>1)&1; C=i&1; }
+    rows.push({A,B,C,S:gate(g,A,B,C)});
+  }
+  const head = n===1 ? '<tr><th>A</th><th>S</th></tr>' : n===2 ? '<tr><th>A</th><th>B</th><th>S</th></tr>' : '<tr><th>A</th><th>B</th><th>C</th><th>S</th></tr>';
+  $('simTable').innerHTML = '<table>'+head+rows.map(r => n===1 ? `<tr><td>${r.A}</td><td>${r.S}</td></tr>` : n===2 ? `<tr><td>${r.A}</td><td>${r.B}</td><td>${r.S}</td></tr>` : `<tr><td>${r.A}</td><td>${r.B}</td><td>${r.C}</td><td>${r.S}</td></tr>`).join('')+'</table>';
+}
+
+/* Constructor flexible fins a 8 portes */
+let cVals = {A:0,B:0,C:0,D:0};
+let circuit = [
+  {type:'AND', in1:'A', in2:'B', in3:'C', neg1:false, neg2:false, neg3:false, negOut:false},
+  {type:'OR', in1:'G1', in2:'C', in3:'D', neg1:false, neg2:false, neg3:false, negOut:false},
+  {type:'XOR', in1:'G2', in2:'D', in3:'A', neg1:false, neg2:false, neg3:false, negOut:false}
+];
+
+document.querySelectorAll('[data-in]').forEach(b => b.onclick = () => { cVals[b.dataset.in] ^= 1; updateConstructor(); });
+$('addGate').onclick = () => {
+  if(circuit.length >= 8){ alert('Màxim 8 portes.'); return; }
+  const n = circuit.length;
+  circuit.push({type:'AND', in1:n ? 'G'+n : 'A', in2:'B', in3:'C', neg1:false, neg2:false, neg3:false, negOut:false});
+  renderGateList(); updateConstructor();
+};
+$('removeGate').onclick = () => {
+  if(circuit.length <= 1){ alert('Cal deixar com a mínim una porta.'); return; }
+  circuit.pop(); renderGateList(); updateConstructor();
+};
+$('resetCircuit').onclick = () => {
+  circuit = [{type:'AND', in1:'A', in2:'B', in3:'C', neg1:false, neg2:false, neg3:false, negOut:false}];
+  renderGateList(); updateConstructor();
+};
+
+function availableSources(index){
+  const base = ['A','B','C','D'];
+  for(let i=1;i<=index;i++) base.push('G'+i);
+  return base;
+}
+function sourceOptions(index, selected){
+  return availableSources(index).map(s => `<option ${s===selected?'selected':''}>${s}</option>`).join('');
+}
+function renderGateList(){
+  $('gateList').innerHTML = circuit.map((g,i) => {
+    const idx=i+1;
+    const isNot = g.type === 'NOT';
+    return `<div class="gate-row" data-gate="${i}">
+      <div class="gate-head"><span class="gate-title">Porta G${idx}</span><span class="badge">${idx}/8</span></div>
+      <div class="inline">
+        <div><label>Tipus</label><select data-field="type">${gates.map(x=>`<option ${x===g.type?'selected':''}>${x}</option>`).join('')}</select></div>
+        <div><label>Entrada 1</label><select data-field="in1">${sourceOptions(i,g.in1)}</select></div>
+        <div class="${isNot?'hidden':''}"><label>Entrada 2</label><select data-field="in2">${sourceOptions(i,g.in2)}</select></div>
+        <div class="${g.type==='MAJ3'?'':'hidden'}"><label>Entrada 3</label><select data-field="in3">${sourceOptions(i,g.in3)}</select></div>
+      </div>
+      <div>
+        <label class="pill"><input type="checkbox" data-field="neg1" ${g.neg1?'checked':''}> NOT entrada 1</label>
+        <label class="pill ${isNot?'hidden':''}"><input type="checkbox" data-field="neg2" ${g.neg2?'checked':''}> NOT entrada 2</label>
+        <label class="pill ${g.type==='MAJ3'?'':'hidden'}"><input type="checkbox" data-field="neg3" ${g.neg3?'checked':''}> NOT entrada 3</label>
+        <label class="pill"><input type="checkbox" data-field="negOut" ${g.negOut?'checked':''}> NOT sortida</label>
+      </div>
+    </div>`;
+  }).join('');
+  document.querySelectorAll('.gate-row select,.gate-row input').forEach(el => {
+    el.onchange = () => {
+      const row = el.closest('.gate-row');
+      const i = +row.dataset.gate;
+      const field = el.dataset.field;
+      circuit[i][field] = el.type === 'checkbox' ? el.checked : el.value;
+      if(field==='type') renderGateList();
+      updateConstructor();
+    };
+  });
+  $('gateCount').textContent = circuit.length + (circuit.length===1 ? ' porta' : ' portes');
+  $('addGate').disabled = circuit.length >= 8;
+  $('removeGate').disabled = circuit.length <= 1;
+}
+function evalSource(src, values, outs){
+  if(src in values) return values[src];
+  if(/^G\d+$/.test(src)) return outs[src] ?? 0;
+  return 0;
+}
+function exprSource(src, exprs){
+  if(['A','B','C','D'].includes(src)) return src;
+  return exprs[src] || src;
+}
+function maybeNot(v, neg){ return neg ? 1-v : v; }
+function maybeNotExpr(e, neg){ return neg ? '¬('+e+')' : e; }
+function evalCircuit(values){
+  let outs = {};
+  let exprs = {};
+  let steps = [];
+  circuit.forEach((g,i) => {
+    const name = 'G'+(i+1);
+    let a = maybeNot(evalSource(g.in1, values, outs), g.neg1);
+    let b = maybeNot(evalSource(g.in2, values, outs), g.neg2);
+    let c = maybeNot(evalSource(g.in3, values, outs), g.neg3);
+    let raw = gate(g.type,a,b,c);
+    let out = maybeNot(raw, g.negOut);
+    outs[name]=out;
+
+    let ea = maybeNotExpr(exprSource(g.in1, exprs), g.neg1);
+    let eb = maybeNotExpr(exprSource(g.in2, exprs), g.neg2);
+    let ec = maybeNotExpr(exprSource(g.in3, exprs), g.neg3);
+    let e;
+    if(g.type==='NOT') e = '¬('+ea+')';
+    else if(g.type==='MAJ3') e = 'MAJ('+ea+', '+eb+', '+ec+')';
+    else e = '('+ea+' '+sym(g.type)+' '+eb+')';
+    e = maybeNotExpr(e, g.negOut);
+    exprs[name]=e;
+
+    const detail = g.type==='NOT'
+      ? `${name} = ${g.negOut?'NOT ':''}${g.type}(${g.neg1?'NOT ':''}${g.in1}) = ${out}`
+      : g.type==='MAJ3'
+        ? `${name} = ${g.negOut?'NOT ':''}${g.type}(${a}, ${b}, ${c}) = ${out}`
+        : `${name} = ${g.negOut?'NOT ':''}${g.type}(${a}, ${b}) = ${out}`;
+    steps.push(detail);
+  });
+  const last = 'G'+circuit.length;
+  return {outs, exprs, S: outs[last] ?? 0, expr: exprs[last] || '—', steps};
+}
+function updateConstructor(){
+  ['A','B','C','D'].forEach(k => $('c'+k).textContent = cVals[k]);
+  const r = evalCircuit(cVals);
+  $('cOut').textContent = r.S; $('cOut').className = r.S ? 'one':'zero';
+  $('exprBox').textContent = 'S = ' + r.expr;
+  $('stepBox').textContent = `A=${cVals.A}, B=${cVals.B}, C=${cVals.C}, D=${cVals.D}\n` + r.steps.join('\n') + `\nS = ${r.S}`;
+  $('cSvg').innerHTML = circuitSvg(r);
+  renderCircuitTable();
+}
+function circuitSvg(current){
+  const width = 260 + circuit.length*150;
+  let svg = `<svg viewBox="0 0 ${width} 310" width="100%" height="340">
+    <defs><style>.t{font:700 15px system-ui}.g{fill:#fff;stroke:#0f172a;stroke-width:3}.wire{stroke-width:5;fill:none}</style></defs>`;
+  const inputY = {A:40,B:90,C:140,D:190};
+  Object.keys(inputY).forEach(k => {
+    svg += `<text class="t" x="10" y="${inputY[k]+5}">${k}=${cVals[k]}</text>`;
+  });
+  let prevX = 80;
+  circuit.forEach((g,i) => {
+    const name = 'G'+(i+1);
+    const x = 120 + i*150;
+    const y = 95;
+    const res = evalCircuit(cVals);
+    let in1Val = evalSource(g.in1, cVals, res.outs);
+    let in2Val = evalSource(g.in2, cVals, res.outs);
+    let in3Val = evalSource(g.in3, cVals, res.outs);
+    in1Val = maybeNot(in1Val,g.neg1);
+    in2Val = maybeNot(in2Val,g.neg2);
+    in3Val = maybeNot(in3Val,g.neg3);
+    const outVal = res.outs[name];
+
+    const src1Y = inputY[g.in1] || 135;
+    const src2Y = inputY[g.in2] || 165;
+    svg += `<line class="wire" x1="${prevX}" y1="${src1Y}" x2="${x}" y2="${y+25}" stroke="${color(in1Val)}"/>`;
+    if(g.type!=='NOT') svg += `<line class="wire" x1="${prevX}" y1="${src2Y}" x2="${x}" y2="${y+65}" stroke="${color(in2Val)}"/>`;
+    if(g.type==='MAJ3') svg += `<line class="wire" x1="${prevX}" y1="${inputY[g.in3]||220}" x2="${x}" y2="${y+95}" stroke="${color(in3Val)}"/>`;
+    svg += `<rect class="g" x="${x}" y="${y}" width="105" height="105" rx="18"/>
+      <text class="t" x="${x+52}" y="${y+45}" text-anchor="middle">${g.type}</text>
+      <text class="t" x="${x+52}" y="${y+72}" text-anchor="middle">${name}=${outVal}</text>
+      <line class="wire" x1="${x+105}" y1="${y+52}" x2="${x+142}" y2="${y+52}" stroke="${color(outVal)}"/>`;
+    prevX = x+142;
+  });
+  const sX = 120 + (circuit.length-1)*150 + 150;
+  svg += `<text class="t" x="${sX}" y="154" font-size="22">S=${current.S}</text></svg>`;
+  return svg;
+}
+function renderCircuitTable(){
+  let head = '<tr><th>A</th><th>B</th><th>C</th><th>D</th>';
+  for(let i=1;i<=circuit.length;i++) head += `<th>G${i}</th>`;
+  head += '<th>S</th></tr>';
+  let rows = '';
+  for(let i=0;i<16;i++){
+    const values = {A:(i>>3)&1,B:(i>>2)&1,C:(i>>1)&1,D:i&1};
+    const r = evalCircuit(values);
+    rows += `<tr><td>${values.A}</td><td>${values.B}</td><td>${values.C}</td><td>${values.D}</td>`;
+    for(let j=1;j<=circuit.length;j++) rows += `<td>${r.outs['G'+j]}</td>`;
+    rows += `<td><b>${r.S}</b></td></tr>`;
+  }
+  $('cTable').innerHTML = '<table>'+head+rows+'</table>';
+}
+function printWindow(title, html){
+  const w = window.open('', '_blank', 'width=950,height=740');
+  if(!w){ alert('El navegador ha bloquejat la finestra emergent. Permet finestres emergents per imprimir.'); return; }
+  w.document.open();
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(title)}</title>
+  <style>body{font-family:Arial,sans-serif;padding:22px;color:#111}h1{color:#1d4ed8}table{border-collapse:collapse;width:100%;margin:12px 0}th,td{border:1px solid #999;padding:6px;text-align:center}th{background:#eaf2ff}.box{border:1px solid #bbb;border-radius:12px;padding:12px;margin:12px 0}svg{max-width:100%}pre{white-space:pre-wrap;font-family:Arial,sans-serif}@media print{button{display:none}}</style>
+  </head><body><h1>${escapeHtml(title)}</h1>${html}<script>setTimeout(()=>{window.focus();window.print()},350)<\/script></body></html>`);
+  w.document.close();
+}
+$('printSim').onclick = () => printWindow('Simulació pas a pas del circuit', `<div class="box">${$('cSvg').innerHTML}</div><h2>Expressió</h2><pre>${escapeHtml($('exprBox').textContent)}</pre><h2>Pas a pas</h2><pre>${escapeHtml($('stepBox').textContent)}</pre><h2>Taula de veritat</h2>${$('cTable').innerHTML}`);
+$('printTable').onclick = () => printWindow('Taula de veritat del circuit', `<h2>Expressió</h2><pre>${escapeHtml($('exprBox').textContent)}</pre>${$('cTable').innerHTML}`);
+$('copyExpr').onclick = () => navigator.clipboard && navigator.clipboard.writeText($('exprBox').textContent);
+
+/* Taula -> porta */
+let edit = [0,0,0,1];
+function renderTruthEdit(){
+  $('truthEdit').innerHTML = '<table><tr><th>A</th><th>B</th><th>S</th></tr>'+[[0,0],[0,1],[1,0],[1,1]].map((r,i)=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td><button class="secondary" data-row="${i}">${edit[i]}</button></td></tr>`).join('')+'</table>';
+  document.querySelectorAll('[data-row]').forEach(b => b.onclick = () => { edit[b.dataset.row] ^= 1; renderTruthEdit(); });
+}
+renderTruthEdit();
+$('recognize').onclick = () => {
+  const map = {'0001':'AND','0111':'OR','1110':'NAND','1000':'NOR','0110':'XOR','1001':'XNOR'};
+  $('recOut').textContent = 'Porta: ' + (map[edit.join('')] || 'no bàsica / combinada');
+};
+
+/* Expressions */
+function safeEval(expr,A,B,C,D){
+  let js = expr.replaceAll('¬','!').replace(/\bA\b/g,A).replace(/\bB\b/g,B).replace(/\bC\b/g,C).replace(/\bD\b/g,D).replace(/&/g,'&&').replace(/\|/g,'||');
+  if(!/^[01!&|^()\s]+$/.test(js)) throw Error('Expressió no permesa');
+  return eval(js) ? 1 : 0;
+}
+$('makeExprTable').onclick = () => {
+  const e = $('exprInput').value;
+  let rows = '';
+  try{
+    for(let i=0;i<16;i++){
+      const A=(i>>3)&1,B=(i>>2)&1,C=(i>>1)&1,D=i&1;
+      rows += `<tr><td>${A}</td><td>${B}</td><td>${C}</td><td>${D}</td><td>${safeEval(e,A,B,C,D)}</td></tr>`;
+    }
+    $('exprTable').innerHTML = `<table><tr><th>A</th><th>B</th><th>C</th><th>D</th><th>S</th></tr>${rows}</table>`;
+  }catch(err){ $('exprTable').textContent = 'Error: ' + err.message; }
+};
+
+/* Karnaugh */
+let kvals = Array(16).fill(0);
+function renderK(){
+  const order = [0,1,3,2];
+  let html = '<table><tr><th>AB\\CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr>';
+  for(let r=0;r<4;r++){
+    html += `<tr><th>${['00','01','11','10'][r]}</th>`;
+    for(let c=0;c<4;c++){
+      const idx = order[r]*4 + order[c];
+      html += `<td><button class="secondary" data-k="${idx}">${kvals[idx]}</button></td>`;
+    }
+    html += '</tr>';
+  }
+  html += '</table>';
+  $('kmap').innerHTML = html;
+  document.querySelectorAll('[data-k]').forEach(b => b.onclick = () => { kvals[b.dataset.k] ^= 1; renderK(); });
+  const ones = kvals.reduce((a,v)=>a+v,0);
+  $('kguide').textContent = `Uns marcats: ${ones}. Guia: busca grups de 1, 2, 4 o 8 cel·les adjacents. Les variables que canvien dins el grup desapareixen del terme simplificat.`;
+}
+renderK();
+
+/* Pràctica */
+const qs = [
+  ['Quina porta dona 1 només si A=1 i B=1?','AND'],
+  ['Quina porta dona 1 si A i B són diferents?','XOR'],
+  ['Quina porta és la negació d’OR?','NOR'],
+  ['Quina és la sortida de AND amb A=1 i B=0?','0'],
+  ['Amb 8 portes, una porta G5 pot usar G6 com a entrada?','NO']
+];
+let cur = 0;
+$('newQ').onclick = () => { cur = Math.floor(Math.random()*qs.length); $('qBox').textContent = qs[cur][0]; $('feed').textContent = ''; $('ans').value=''; };
+$('checkAns').onclick = () => { $('feed').textContent = ($('ans').value.trim().toUpperCase() === qs[cur][1]) ? 'Correcte' : 'No exactament. Solució: '+qs[cur][1]; };
+
+/* Docent */
+function makeSheet(){
+  const type = $('sheetType').value, sol = $('withSol').value === 'yes';
+  let html = `<h2>Fitxa generada: ${escapeHtml(type)}</h2><p>Nom: __________________________ Data: __________</p>`;
+  if(type==='Portes bàsiques') html += '<ol><li>Dibuixa la taula de veritat de AND.</li><li>Explica la diferència entre OR i XOR.</li><li>Quina porta és equivalent a NOT(AND)?</li></ol>';
+  if(type==='Taules de veritat') html += '<ol><li>Completa la taula de S=A·B.</li><li>Completa la taula de S=A+B.</li><li>Identifica la porta a partir de 0,1,1,0.</li></ol>';
+  if(type==='Constructor de circuits') html += '<ol><li>Configura un circuit amb G1=AND, G2=OR, G3=XOR.</li><li>Escriu G1, G2, G3 i S.</li><li>Fes la taula de veritat.</li></ol>';
+  if(type==='Examen ràpid') html += '<ol><li>Identifica AND, OR i NOT.</li><li>Calcula la sortida de XOR per A=1, B=0.</li><li>Dissenya una alarma que s’activi amb porta oberta o fum.</li></ol>';
+  if(type==='Circuit de fins a 8 portes') html += '<ol><li>Crea un circuit amb 5 portes: dues AND, una OR, una XOR i una NOT.</li><li>Fes que la sortida final depengui de A, B, C i D.</li><li>Copia l’expressió booleana i completa quatre files de la taula.</li><li>Explica per què una porta només pot usar portes anteriors.</li></ol>';
+  if(sol) html += '<h3>Solucions orientatives</h3><p>AND: només 1 amb totes les entrades a 1. XOR: 1 si les entrades són diferents. Les portes G només poden usar entrades A-D o sortides G anteriors per evitar circuits circulars.</p>';
+  $('sheet').innerHTML = html;
+}
+$('genSheet').onclick = makeSheet;
+$('printSheet').onclick = () => printWindow('Fitxa docent', $('sheet').innerHTML);
+
+/* Ajuda */
+$('clearCache').onclick = async () => {
+  if('serviceWorker' in navigator){
+    const regs = await navigator.serviceWorker.getRegistrations();
+    for(const r of regs) await r.unregister();
+  }
+  if('caches' in window){
+    const ks = await caches.keys();
+    for(const k of ks) await caches.delete(k);
+  }
+  alert('Memòria cau netejada. Recarrega la pàgina.');
+};
+$('diag').textContent = 'Diagnosi: JavaScript carregat. Versió v5. Constructor màxim: 8 portes. Pestanyes: '+pages.length+'.';
+
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+/* Inici */
+renderGateList();
+updateSim();
+updateConstructor();
+$('newQ').onclick();
+makeSheet();
 </script>
 </body>
 </html>
